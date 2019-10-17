@@ -35,7 +35,7 @@ public class CargoServiceImpl implements CargoService {
 
 	@Override
 	@Transactional(readOnly = true) // nao ira abrir uma nova transao, apenas leitura
-	public Cargo buscarPortId(Long id) {
+	public Cargo buscarPorId(Long id) {
 		return dao.findById(id);
 	}
 
@@ -47,7 +47,7 @@ public class CargoServiceImpl implements CargoService {
 
 	@Override
 	public boolean cargoTemFuncionarios(Long id) {
-		if(buscarPortId(id).getFuncionarios().isEmpty()) {
+		if(buscarPorId(id).getFuncionarios().isEmpty()) {
 			return false;
 		}
 		return true;

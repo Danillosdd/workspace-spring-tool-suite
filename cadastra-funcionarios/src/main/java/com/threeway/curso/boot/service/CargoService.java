@@ -12,7 +12,7 @@ public interface CargoService {
 
 	void excluir(Long id);
 
-	Cargo buscarPortId(Long id);
+	Cargo buscarPorId(Long id);
 
 	List<Cargo> buscarTodos();
 

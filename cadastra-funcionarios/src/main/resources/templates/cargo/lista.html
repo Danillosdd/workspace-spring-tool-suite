@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html layout:decorate="~{layout}">
 <head>
-<title>Spring-Boot</title>
 <meta charset="UTF-8" />
 </head>
 <body>
+
 
 	<section class="layout-content" layout:fragment="corpo">
 
@@ -22,6 +22,8 @@
 		</nav>
 
 		<div class="container" id="listagem">
+			<div th:replace="fragments/alert"></div>
+
 			<div class="table-responsive">
 				<table class="table table-striped table-hover table-sm">
 					<thead>
@@ -33,26 +35,28 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>Auxiliar Contábil</td>
-							<td>Contabilidade</td>
+						<tr th:each="c : ${cargos}">
+							<td th:text="${c.id}"></td>
+							<td th:text="${c.nome}"></td>
+							<td th:text="${c.departamento.nome}"></td>
 							<td colspan="2"><a class="btn btn-info btn-sm"
-								href="/cargos/editar/1" role="button"> <span
-									class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+								th:href="@{/cargos/editar/{id} (id=${c.id})}" role="button">
+									<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
 							</a>
-								<button type="button" class="btn btn-danger btn-sm">
-									<span class="oi oi-circle-x" title="Exclusão desabilitada"
-										aria-hidden="true"></span>
-								</button></td>
+							<button th:id="${#strings.concat('btn_cargos/excluir/' + c.id)}"
+								type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+								data-target="#myModal">
+								<span class="oi oi-circle-x" title="Exclusão desabilitada"
+									aria-hidden="true"></span>
+							</button>
+							</td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>Auxiliar Administrativo</td>
-							<td>Administração</td>
-							<td colspan="2"><a class="btn btn-info btn-sm"
-								href="/cargos/editar/2" role="button"> <span
-									class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+
+					</tbody>
+				</table>
+			</div>
+			<div th:replace="fragments/modal :: modal"></div>
 	</section>
+
 </body>
 </html>
