@@ -48,7 +48,7 @@ public class CargoController {
 	public String Salvar(Cargo cargo, RedirectAttributes attr) {
 		cargoservice.salvar(cargo);
 		attr.addFlashAttribute("success", "Cargo salvo com sucesso.");
-		return "redirect:/cargos/cadastrar";
+		return "redirect:/cargos/listar";
 	}
 
 	@GetMapping("/editar/{id}")
@@ -61,7 +61,7 @@ public class CargoController {
 	public String editar(Cargo cargo, RedirectAttributes attr) {
 		cargoservice.editar(cargo);
 		attr.addFlashAttribute("success", "Cargo editado com sucesso.");
-		return "redirect:/cargos/cadastrar";
+		return "redirect:/cargos/listar";
 	}
 
 	@GetMapping("/excluir/{id}")

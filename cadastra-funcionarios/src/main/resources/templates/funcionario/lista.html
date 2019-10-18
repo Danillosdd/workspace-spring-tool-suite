@@ -19,7 +19,7 @@
 		</nav>
 
 		<div class="container">
-		<div th:replace="fragments/alert"></div>
+			<div th:replace="fragments/alert"></div>
 
 			<p>
 				<i class="oi oi-magnifying-glass"></i><span></span>
@@ -39,9 +39,9 @@
 
 						<nav class="navbar navbar-light bg-light">
 							<form class="form-inline" method="GET"
-								action="/funcionarios/buscar/nome">
+								th:action="@{/funcionarios/buscar/nome}">
 								<input class="form-control mr-sm-2" type="search"
-									placeholder="nome" aria-label="Search" name="nome" />
+									placeholder="nome" aria-label="Search" th:name="nome" />
 								<button class="btn btn-outline-success my-2 my-sm-0">Search</button>
 							</form>
 						</nav>
@@ -105,10 +105,11 @@
 							<th>#</th>
 							<th>Nome</th>
 							<th>Salário</th>
+							<th>Departamento</th>
+							<th>Cargo</th>
+							<th>Endereco</th>
 							<th>Data de Entrada</th>
 							<th>Data de Saída</th>
-							<th>Cargo</th>
-							<th>Cidade</th>
 							<th>Ação</th>
 						</tr>
 					</thead>
@@ -116,22 +117,39 @@
 						<tr th:each="f : ${funcionarios}">
 							<td th:text="${f.id}"></td>
 							<td th:text="${f.nome}"></td>
-							<td th:text="${f.salario}"></td>
-							<td th:text="${f.dataEntrada}"></td>
-							<td th:text="${f.dataSaida}"></td>
+							<td th:text="|R$ ${{f.salario}}|"></td>
+							<td th:text="${f.cargo.departamento.nome}"></td>
 							<td th:text="${f.cargo.nome}"></td>
-							<td th:text="${f.endereco.cidade}"></td>
-							<td colspan="2"><a class="btn btn-info btn-sm"
-								th:href="@{/funcionarios/editar/{id} (id=${f.id})}" role="button">
-									<span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
-							</a>
-							<button th:id="${#strings.concat('btn_funcionarios/excluir/' + f.id)}"
-								type="button" class="btn btn-danger btn-sm" data-toggle="modal"
-								data-target="#myModal">
-								<span class="oi oi-circle-x" title="Exclusão desabilitada"
-									aria-hidden="true"></span>
-							</button>
+							<td>
+								<button type="button" class="btn btn-secondary btn-sm"
+									data-container="body" data-toggle="popover"
+									data-placement="top"
+									th:attr="data-content=${#strings.concat(
+		                                    f.endereco.logradouro, ', ',
+		                                    f.endereco.numero, ' ',
+		                                    f.endereco.complemento, ' - ',
+		                                    f.endereco.bairro, ', ',
+		                                    f.endereco.cidade, ' - ',
+		                                    f.endereco.uf.sigla, ' - ',
+		                                    f.endereco.cep
+		                                    )}">
+									<span class="oi oi-eye" title="Visualizar" aria-hidden="true"></span>
+								</button>
 							</td>
+							<td th:text="${#temporals.format(f.dataEntrada, 'dd/MM/yyyy')}"></td>
+							<td th:text="${#temporals.format(f.dataSaida, 'dd/MM/yyyy')}"></td>
+							<td colspan="2"><a class="btn btn-info btn-sm"
+								th:href="@{/funcionarios/editar/{id} (id=${f.id})}"
+								role="button"> <span class="oi oi-brush" title="Editar"
+									aria-hidden="true"></span>
+							</a>
+								<button
+									th:id="${#strings.concat('btn_funcionarios/excluir/' + f.id)}"
+									type="button" class="btn btn-danger btn-sm" data-toggle="modal"
+									data-target="#myModal">
+									<span class="oi oi-circle-x" title="Exclusão desabilitada"
+										aria-hidden="true"></span>
+								</button></td>
 						</tr>
 					</tbody>
 				</table>

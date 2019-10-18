@@ -35,7 +35,7 @@ public class DepartamentoController {
 	public String Salvar(Departamento departamento, RedirectAttributes attr) {
 		service.salvar(departamento);
 		attr.addFlashAttribute("success", "Departamento salvo com sucesso.");
-		return "redirect:/departamentos/cadastrar";
+		return "redirect:/departamentos/listar";
 	}
 
 	@GetMapping("/editar/{id}")
@@ -48,7 +48,7 @@ public class DepartamentoController {
 	public String editar(Departamento departamento, RedirectAttributes attr) {
 		service.editar(departamento);
 		attr.addFlashAttribute("success", "Departamento editado com sucesso.");
-		return "redirect:/departamentos/cadastrar";
+		return "redirect:/departamentos/listar";
 	}
 
 	@GetMapping("/excluir/{id}")
