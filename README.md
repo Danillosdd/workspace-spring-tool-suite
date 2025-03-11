@@ -1,4 +1,4 @@
-# workspace-spring-tool-suite
+# workspace-spring-tool-suite-3way
 
 echo "# workspace-spring-tool-suite" >> README.md<br>
 git init<br>
